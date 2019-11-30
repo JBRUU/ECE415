@@ -1,3 +1,9 @@
+/*JB Ruutelmann
+ECE 415 - arduino lights
+
+v1.0: 
+*/
+
 #include <string.h>
 #include <time.h>
 
@@ -98,9 +104,7 @@ void light_em_up()
   {
     digitalWrite(green1, HIGH);
     digitalWrite(red, HIGH);
-    delay(100);
-    digitalWrite(green1, LOW);
-    digitalWrite(red, LOW);
+
 
     redLight = false;
     greenLight = false;
@@ -111,16 +115,14 @@ void light_em_up()
   if (redLight)
   {
     digitalWrite(red, HIGH);
-    delay(100);
-    digitalWrite(red, LOW);
+    digitalWrite(green1, LOW);
     redLight = false;
   }
 
   if(greenLight)
   {
     digitalWrite(green1, HIGH);
-    delay(100);
-    digitalWrite(green1, LOW);
+    digitalWrite(red, LOW);
     greenLight = false;
   }
   
