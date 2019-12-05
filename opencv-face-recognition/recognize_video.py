@@ -14,6 +14,14 @@ import pickle
 import time
 import cv2
 import os
+import serial #Serial imported for Serial communication
+import time #Required to use delay functions
+
+
+ArduinoSerial = serial.Serial('com11',9600) # comport may change. look it up in arduino ide
+time.sleep(2)
+print (ArduinoSerial.readline())
+
 
 '''# construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
@@ -55,7 +63,7 @@ le = pickle.loads(open(args["le"], "rb").read())
 
 # initialize the video stream, then allow the camera sensor to warm up
 print("[INFO] starting video stream...")
-vs = VideoStream(src=1).start()
+vs = VideoStream(src=0).start()
 time.sleep(2.0)
 
 # start the FPS throughput estimator
@@ -125,6 +133,31 @@ while True:
 				(0, 0, 255), 2)
 			cv2.putText(frame, text, (startX, y),
 				cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
+
+			if name == "david":
+				print('Recognized User: David')
+				packege = 'david'
+				ArduinoSerial.write(packege.encode())
+
+			elif name == "Donny":
+				print('Recognized User: Donny')
+				packege = 'donald'
+				ArduinoSerial.write(packege.encode())	
+
+			else:
+				print('Recognized Unknown User')
+				packege = 'unknown'
+				ArduinoSerial.write(packege.encode())
+
+			'''if name == "david":
+    			print('we found david sending the beacon')
+    			packege = '1'
+    			ArduinoSerial.write(packege.encode())
+    
+			else:
+    			print('we found '+ name)
+    			packege = '0'
+    			ArduinoSerial.write(packege.encode())'''
 
 	# update the FPS counter
 	fps.update()
